@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   bot:
-    container_name: "Hashtag Bot"
+    container_name: "HashtagBot"
     image: "node:10"
     working_dir: "/app"
     volumes:
@@ -13,7 +13,7 @@ services:
     command: "npx pm2 start ./src/hashtag.config.js --no-daemon"
 
   db:
-    container_name: "Hashtag Boot - PostgresSQL"
+    container_name: "HashtagBoot-PostgresSQL"
     image: "postgres:latest"
     environment:
       POSTGRES_USER: admin
