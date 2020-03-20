@@ -1,9 +1,19 @@
 version: "3.2"
 
 services:
-
+  bot:
+    container_name: "HashtagBot"
+    image: "node:10"
+    working_dir: "/app"
+    depends_on:
+      - db
+    volumes:
+      - "./:/app"
+    environment:
+      TOKEN:
+      DATABASE_URI: postgresql://admin:iona@127.0.0.1:5432/hashtag_bot
+    command: "npx pm2 start ./src/hashtag.config.js --no-daemon"
   db:
-    container_name: "HashtagBoot-PostgresSQL"
     image: "postgres:latest"
     environment:
       POSTGRES_USER: admin
@@ -11,13 +21,4 @@ services:
       POSTGRES_DB: hashtag_bot
     volumes:
       - ./data:/var/lib/postgresql/data
-  bot:
-    container_name: "HashtagBot"
-    image: "node:10"
-    working_dir: "/app"
-    volumes:
-      - "./:/app"
-    environment:
-      TOKEN: 
-      DATABASE_URI: postgresql://admin:iona@127.0.0.1:5432/hashtag_bot
-    command: "npx pm2 start ./src/hashtag.config.js --no-daemon"
+
